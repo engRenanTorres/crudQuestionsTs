@@ -1,36 +1,26 @@
 import { useForm } from 'react-hook-form';
 import * as C from './Index.styles';
-import { Question } from '../../types/Question';
+import { Question, QuestionForm } from '../../types/Question';
 import {
 	createDocument,
 	updateDocument,
 } from '../../services/firebaseService';
 
-const Index = () =>{
+const CreateQuestionForm = () =>{
 	const {
 		register,
 		handleSubmit,
 		reset,
-	} = useForm<Question>();
+	} = useForm<QuestionForm>();
 
-	const onSubmit = (data:Question) => {
-		console.log('cheguei');
+	const onSubmit = (data:QuestionForm) => {
+		
 		alert(JSON.stringify(data));
 	};
-	const createEspecialidadeHandler = async (data: Question) => {
+	const createEspecialidadeHandler = async (data: QuestionForm) => {
 		try {
-			await createDocument('engSegTrab', {
-				id: data.id,
-				banca: data.banca,
-				nivel: data.nivel,
-				cargo: data.cargo,
-				concurso: data.concurso,
-				ano:  data.ano,
-				assunto: data.assunto,
-				enunciado: data.enunciado,
-				alternativas:data.alternativas,
-				resposta: data.resposta,
-				observacao: data.observacao
+			await createDocument('engSegTrab', { ...data,
+				alternativas: [data.alternativa0,data.alternativa1,data.alternativa2,data.alternativa3,data.alternativa4],
 			});
 		}catch(e){
 			console.log('erro na inserção do bd');
@@ -74,23 +64,23 @@ const Index = () =>{
 					</div>
 					<div>
 						<label htmlFor='alternativa0'>Alternativa0</label>
-						<textarea {...register('alternativas.0',{ required: false })} id='alternativa0' name= 'alternativa0'/>
+						<textarea {...register('alternativa0',{ required: false })} id='alternativa0' name= 'alternativa0'/>
 					</div>
 					<div>
 						<label htmlFor='alternativa1'>Alternativa1</label>
-						<textarea {...register('alternativas.1',{ required: false })} id='alternativa1' name= 'alternativa1'/>
+						<textarea {...register('alternativa1',{ required: false })} id='alternativa1' name= 'alternativa1'/>
 					</div>					
 					<div>
 						<label htmlFor='alternativa2'>Alternativa2</label>
-						<textarea {...register('alternativas.2',{ required: false })} id='alternativa2' name= 'alternativa2'/>
+						<textarea {...register('alternativa2',{ required: false })} id='alternativa2' name= 'alternativa2'/>
 					</div>
 					<div>
 						<label htmlFor='alternativa3'>Alternativa3</label>
-						<textarea {...register('alternativas.3',{ required: false })} id='alternativa3' name= 'alternativa3'/>
+						<textarea {...register('alternativa3',{ required: false })} id='alternativa3' name= 'alternativa3'/>
 					</div>
 					<div>
 						<label htmlFor='alternativa4'>Alternativa4</label>
-						<textarea {...register('alternativas.4',{ required: false })}id='alternativa4' name= 'alternativa4'/>
+						<textarea {...register('alternativa4',{ required: false })}id='alternativa4' name= 'alternativa4'/>
 					</div>
 					<div>
 						<label htmlFor='resposta'>Resposta</label>
@@ -110,4 +100,4 @@ const Index = () =>{
 	);
 };
 
-export default Index;
+export default CreateQuestionForm;

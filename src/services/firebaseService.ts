@@ -9,9 +9,9 @@ import {
 	getDocs,
 } from 'firebase/firestore';
 import { db } from '../libs/firebase';
-import { Question } from '../types/Question';
+import { Question, QuestionToSend } from '../types/Question';
 
-const createDocument = async (col:string, doc:Question) => {
+const createDocument = async (col:string, doc:QuestionToSend) => {
 	try {
 		const docRef = await addDoc(collection(db, col), doc);
 
@@ -32,11 +32,10 @@ const readDocuments = async (col:string) => {
 	const querySnapshot = await getDocs(collection(db, col));
 
 	querySnapshot.forEach((doc) => {
-		const id = doc.id;
 		const data = doc.data();
 
 		docs.push({ 
-			id: id,
+			id: data.id,
 			banca: data.banca,
 			nivel: data.nivel,
 			cargo: data.cargo,
