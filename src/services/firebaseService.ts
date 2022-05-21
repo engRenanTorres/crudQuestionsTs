@@ -11,6 +11,26 @@ import {
 import { db } from '../libs/firebase';
 import { Question, QuestionToSend } from '../types/Question';
 
+/* // Create a reference to the cities collection
+import { collection, query, where } from "firebase/firestore";
+const citiesRef = collection(db, "cities");
+
+// Create a query against the collection.
+//retorna todos objetos do state CA
+const q = query(citiesRef, where("state", "==", "CA")); 
+
+//retorna todas as capitais
+const q = query(citiesRef, where("capital", "==", true));
+
+//para obter os resultados é preciso colocar a consulta q no getDocs
+const querySnapshot = await getDocs(q);
+querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  console.log(doc.id, " => ", doc.data());
+});
+
+*/
+
 const createDocument = async (col:string, doc:QuestionToSend) => {
 	try {
 		const docRef = await addDoc(collection(db, col), doc);
@@ -32,10 +52,11 @@ const readDocuments = async (col:string) => {
 	const querySnapshot = await getDocs(collection(db, col));
 
 	querySnapshot.forEach((doc) => {
+		const dataId = doc.id;
 		const data = doc.data();
 
 		docs.push({ 
-			id: data.id,
+			id: dataId,
 			banca: data.banca,
 			nivel: data.nivel,
 			cargo: data.cargo,

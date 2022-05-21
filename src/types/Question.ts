@@ -18,6 +18,25 @@ export type Question = {
     observacao:string
 }
 
+export type QuestionToSend = {
+  banca: string;
+  nivel: string;
+  cargo: string;
+  concurso: string;
+  ano:  number;
+  assunto: string;
+  enunciado: string;
+  alternativas:[
+    string,
+    string,  
+    string,
+    string,
+    string
+  ];
+  resposta: string;
+  observacao:string
+}
+
 export type QuestionForm = {
   id: string;
   banca: string;
@@ -36,21 +55,3 @@ export type QuestionForm = {
   observacao:string
 }
 
-export type QuestionToSend = {
-	banca: string;
-	nivel: string;
-	cargo: string;
-	concurso: string;
-	ano:  number;
-	assunto: string;
-	enunciado: string;
-	alternativas:[
-		string,
-		string,  
-		string,
-		string,
-		string
-	];
-	resposta: string;
-	observacao:string
-}

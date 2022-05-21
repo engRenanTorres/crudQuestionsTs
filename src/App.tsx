@@ -5,8 +5,8 @@ import QuestionsList from './pages/QuestionsList';
 const App = () =>{
 	return (
 		<div>
-			<QuestionsList/>
 			<CreateQuestionForm/>
+			<QuestionsList/>
 		</div>
 	);
 };
